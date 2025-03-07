@@ -21,10 +21,11 @@ module Spec
       Dir.glob("#{tmp}/{gems/*,*}", File::FNM_DOTMATCH).each do |dir|
         next if %w[base base_system remote1 rubocop standard gems rubygems . ..].include?(File.basename(dir))
 
-        begin
-          rm_rf dir
-        rescue Errno::ENAMETOOLONG
-          system("rm -rf #{dir}")
+        FileUtils.rm_rf dir
+
+        if File.exist?(dir)
+          system("tree #{dir}")
+          raise "Example \"#{RSpec.current_example.metadata[:full_description]}\" is leaking state. #{dir} was not cleaned up"
         end
       end
       FileUtils.mkdir_p(home)
