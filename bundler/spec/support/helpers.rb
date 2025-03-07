@@ -20,7 +20,12 @@ module Spec
     def reset!
       Dir.glob("#{tmp}/{gems/*,*}", File::FNM_DOTMATCH).each do |dir|
         next if %w[base base_system remote1 rubocop standard gems rubygems . ..].include?(File.basename(dir))
-        rm_rf dir
+
+        begin
+          rm_rf dir
+        rescue Errno::ENAMETOOLONG
+          system("rm -rf #{dir}")
+        end
       end
       FileUtils.mkdir_p(home)
       FileUtils.mkdir_p(tmpdir)
