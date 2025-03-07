@@ -32,7 +32,7 @@ RSpec.describe "bundle install with git sources" do
 
     it "does not write to cache on bundler/setup" do
       cache_path = default_bundle_path("cache")
-      FileUtils.rm_rf(cache_path)
+      rm_rf(cache_path)
       ruby "require 'bundler/setup'"
       expect(cache_path).not_to exist
     end
@@ -1039,7 +1039,7 @@ RSpec.describe "bundle install with git sources" do
       gem "foo", :git => "#{lib_path("foo-1.0")}"
     G
 
-    FileUtils.rm_rf(lib_path("foo-1.0"))
+    rm_rf(lib_path("foo-1.0"))
 
     bundle "install"
     expect(out).not_to match(/updating/i)

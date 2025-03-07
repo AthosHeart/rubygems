@@ -20,7 +20,7 @@ module Spec
     def reset!
       Dir.glob("#{tmp}/{gems/*,*}", File::FNM_DOTMATCH).each do |dir|
         next if %w[base base_system remote1 rubocop standard gems rubygems . ..].include?(File.basename(dir))
-        FileUtils.rm_rf(dir)
+        rm_rf dir
       end
       FileUtils.mkdir_p(home)
       FileUtils.mkdir_p(tmpdir)
@@ -396,7 +396,7 @@ module Spec
     end
 
     def pristine_system_gems(*gems)
-      FileUtils.rm_rf(system_gem_path)
+      rm_rf(system_gem_path)
 
       system_gems(*gems)
     end
@@ -414,7 +414,7 @@ module Spec
     def cache_gems(*gems, gem_repo: gem_repo1)
       gems = gems.flatten
 
-      FileUtils.rm_rf("#{bundled_app}/vendor/cache")
+      rm_rf("#{bundled_app}/vendor/cache")
       FileUtils.mkdir_p("#{bundled_app}/vendor/cache")
 
       gems.each do |g|
@@ -425,7 +425,7 @@ module Spec
     end
 
     def simulate_new_machine
-      FileUtils.rm_rf bundled_app(".bundle")
+      rm_rf bundled_app(".bundle")
       pristine_system_gems :bundler
     end
 

@@ -187,7 +187,7 @@ module Spec
     end
 
     def build_repo2(**kwargs, &blk)
-      FileUtils.rm_rf gem_repo2
+      rm_rf gem_repo2
       FileUtils.cp_r gem_repo1, gem_repo2
       update_repo2(**kwargs, &blk) if block_given?
     end
@@ -273,7 +273,7 @@ module Spec
 
     def check_test_gems!
       if rake_path.nil?
-        FileUtils.rm_rf(base_system_gems)
+        rm_rf(base_system_gems)
         Spec::Rubygems.install_test_deps
       end
 
@@ -353,7 +353,7 @@ module Spec
     private
 
     def build_empty_repo(gem_repo, **kwargs, &blk)
-      FileUtils.rm_rf gem_repo
+      rm_rf gem_repo
       build_repo(gem_repo, **kwargs, &blk)
     end
 

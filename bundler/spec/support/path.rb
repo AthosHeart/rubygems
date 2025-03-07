@@ -293,6 +293,12 @@ module Spec
       Dir[base_system_gem_path.join("gems/{#{deps.join(",")}}-*/lib")].map(&:to_s)
     end
 
+    def rm_rf(paths)
+      Array(paths).each do |path|
+        FileUtils.rm_r(path) if File.exist?(path)
+      end
+    end
+
     private
 
     def git_ls_files(glob)

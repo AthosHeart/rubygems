@@ -95,7 +95,7 @@ RSpec.describe "bundle check" do
       gem "foo", git: "#{lib_path("foo")}"
     G
 
-    FileUtils.rm_rf bundled_app("vendor/bundle")
+    rm_rf bundled_app("vendor/bundle")
     bundle :check, raise_on_error: false
     expect(exitstatus).to eq 1
     expect(err).to include("Bundler can't satisfy your Gemfile's dependencies.")
@@ -281,7 +281,7 @@ RSpec.describe "bundle check" do
         G
         bundle "install --path vendor/bundle"
 
-        FileUtils.rm_rf(bundled_app(".bundle"))
+        rm_rf(bundled_app(".bundle"))
       end
 
       it "returns success" do
